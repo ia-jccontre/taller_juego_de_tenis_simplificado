@@ -20,9 +20,6 @@ public class TennisView extends JFrame {
 
 	private JPanel contentPane;
 	private Tennis codigo;
-	private JTextField textField;
-	private JTextField textField_1;
-
 
 	/**
 	 * Launch the application.
@@ -45,7 +42,7 @@ public class TennisView extends JFrame {
 	 */
 	public TennisView() {
 		codigo = new Tennis();
-		setTitle("Pago de habitación");
+		setTitle("Taller Tenis");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 120);
 		contentPane = new JPanel();
@@ -56,7 +53,6 @@ public class TennisView extends JFrame {
 		JLabel labelPlayer = new JLabel("0");
 		contentPane.add(labelPlayer, BorderLayout.NORTH);
 
-		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new GridLayout(0, 2, 0, 0));
@@ -65,7 +61,7 @@ public class TennisView extends JFrame {
 		JButton btnCalculatePlayerOne = new JButton("Jugador 1");
 		btnCalculatePlayerOne.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				labelPlayer.setText(codigo.addPoints(1));
+				labelPlayer.setText(codigo.addPoints(0));
 			}
 		});
 		panel.add(btnCalculatePlayerOne);
@@ -73,10 +69,9 @@ public class TennisView extends JFrame {
 		JButton btnCalculateTwo = new JButton("Jugador 2");
 		btnCalculateTwo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				labelPlayer.setText(codigo.addPoints(2));
+				labelPlayer.setText(codigo.addPoints(1));
 			}
 		});
 		panel.add(btnCalculateTwo);
 	}
-
 }

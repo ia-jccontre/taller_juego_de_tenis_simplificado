@@ -1,56 +1,50 @@
 
 package codigo;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class Tennis {
-	private NumberToLetterConverter codigo;
-	private int totalScorePlayerOne = 0;
-	private int totalScorePlayerTwo = 0;
+	private boolean gameStatus = true;
+	private int[] playersScores = {0,0};
+	private int[] scores = {0,15,30,40};
 
-	private int scorePlayerOne = 0;
-	private int scorePlayerTwo = 0;
-
-
-	public String addPoints(int a){
-
-		if(a == 1){
-			if (scorePlayerOne == 0){
-				scorePlayerOne = 15;
+	public String addPoints(int player){
+		String labelStatus = "";
+		if(!gameStatus){
+			return "Game over";
+		}
+		if(playersScores[player]<40) {
+			playersScores[player] = scores[Arrays.binarySearch(scores, playersScores[player]) + 1];
+			if(playersScores[0] == playersScores[1] && playersScores[0] == 40){
+				labelStatus = "deuce";
 			}
-			else if(scorePlayerOne == 15){
-				scorePlayerOne = 30;
+		}else{
+			playersScores[player] = playersScores[player] + 1;
+			if(playersScores[0] == playersScores[1]){
+				playersScores[0] = 40;
+				playersScores[1] = 40;
+				labelStatus = "deuce";
 			}
-			else if(scorePlayerOne == 30){
-				scorePlayerOne = 40;
+			if(playersScores[0] == playersScores[1]+1){
+				labelStatus = "Advantage PlayerOne";
 			}
-			else {
-				scorePlayerOne = 0;
-				scorePlayerTwo = 0;
-				totalScorePlayerOne = totalScorePlayerOne + 1;
+			else if(playersScores[1] == playersScores[0]+1) {
+				labelStatus = "Advantage PlayerTwo";
+			}
+			else if((playersScores[0] == playersScores[1]+2) || (playersScores[0] == 41 && playersScores[0] > playersScores[1])){
+				labelStatus = "PlayerOne Wins";
+				gameStatus = false;
+			}
+			else if((playersScores[1] == playersScores[0]+2) || (playersScores[1] == 41 && playersScores[1] > playersScores[0])){
+				labelStatus = "PlayerTwo Wins";
+				gameStatus = false;
 			}
 		}
-		if(a == 2){
-			if (scorePlayerTwo == 0){
-				scorePlayerTwo = 15;
-			}
-			else if(scorePlayerTwo == 15){
-				scorePlayerTwo = 30;
-			}
-			else if(scorePlayerTwo == 30){
-				scorePlayerTwo = 40;
-			}
-			else {
-				scorePlayerOne = 0;
-				scorePlayerTwo = 0;
-				totalScorePlayerTwo = totalScorePlayerTwo + 1;
-			}
-		}
-		
-		String labelScorePlayerOne = "Player 1: " + scorePlayerOne + "  Set: " + totalScorePlayerOne + "      " + "Player 2: " + scorePlayerTwo + "  Set: " + totalScorePlayerTwo;
 
+		String labelScorePlayerOne = "Player 1: " + playersScores[0] + " - " + "Player 2: " + playersScores[1] + " ("+labelStatus+")";
 		return labelScorePlayerOne;
 	}
-	
+
 }
